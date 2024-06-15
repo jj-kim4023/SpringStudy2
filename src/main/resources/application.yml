@@ -6,17 +6,23 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    각자 PC에 만들어놓은 Database이름을 써야 합니다.
-    url: jdbc:mysql://localhost:3306/db_hikun?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/db_web?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     #    mysql에 생성한 사용자 계정 정보를 써야 합니다.
-    username: user_hikun
+    username: root
     password: 4023
   thymeleaf:
     cache: false
 
   # spring data jpa 설정
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # mysql 버전이 8인데 5로 설정돼있네, dialect는 방언으로 각 db 벤더마다 명령어가 달라서 맞춰줘야 함.
+    # 사실 가장 깔끔한건 얘 걍 지워버리기
+    # 어차피 스프링부트가 자체적으로 등록돼있는 db 드라이버 보고 알아서 방언 설정해줘서 생략해도 가능.
+#    database-platform: org.hibernate.dialect.MySQL8InnoDBDialect
     open-in-view: false
     show-sql: true
     hibernate:
-      ddl-auto: create
+      # ddl-auto : create 일 경우, 테이블과 매핑되는 자바 객체가 있으면 테이블 자동 생성
+      # 최초에만 create 하고 이후엔 update로 바꿔야 함.
+      # 안 그러면 매 실행마다 db 초기화 됨.
+      ddl-auto: update
