@@ -14,7 +14,9 @@ import java.lang.reflect.Member;
 @NoArgsConstructor
 @ToString
 public class MemberDTO {
+    // 얘는 왜 원시타입이지?
     private long id;
+//    private Long id;
     private String memberEmail;
     private String memberPassword;
     private String memberName;
